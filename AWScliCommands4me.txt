@@ -1,0 +1,2 @@
+aws configure - This opens and promts credentials for AWS IAM account
+aws s3 ls - List all S3 buckets in the account
