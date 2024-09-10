@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+echo "Let that sync in"
+
+# bucket name
+if [ -z "$1" ]; then
+    echo "There needs to be a bucket name eg/ ./bucket my-bucket"
+    exit 1
+fi
+BUCKET_NAME=$1
+
+# File name
+if [ -z "$2" ]; then
+    echo "There needs to be a bucket name eg/ ./bucket my-bucket"
+    exit 1
+fi
+BUCKET_NAME=$1
+FILENAME_PRE=$2
+
+# Storing the files
+OUTPUT_DIR="/tmp/s3-bash-scripts"
+
+# new generation if doesnt already exist: 
+rm -r $OUTPUT_DIR
+
+# Creating output folder
+mkdir -p $OUTPUT_DIR
+
+# Generate random number
+NUM_FILES=$((RANDOM % 6 + 5))
+
+for ((i = 1; i <= NUM_FILES; i++)); do
+  FILENAME="$OUTPUT_DIR/${FILENAME_PRE}_$i.txt"
+  
+  # Generate 100 random bytes of data and write it into the file
+  head -c 100 /dev/urandom | base64 > "$FILENAME"
+
+  echo "Created file: $FILENAME with random data"
+done
+
+aws s3 sync $OUTPUT_DIR s3://$BUCKET_NAME/files

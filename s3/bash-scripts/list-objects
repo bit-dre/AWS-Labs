@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+echo "Listing newest buckets"
+
+
+aws s3 ls
+aws s3api list-buckets | jq -r ; .buckets | sort_by(.creationDate) | reverse | .[0:5] | .[] | .Name' 

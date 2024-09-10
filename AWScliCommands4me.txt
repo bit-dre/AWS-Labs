@@ -1,2 +1,7 @@
-aws configure - This opens and promts credentials for AWS IAM account
-aws s3 ls - List all S3 buckets in the account
+aws configure : This opens and promts credentials for AWS IAM account
+aws s3 ls : List all S3 buckets in the account
+aws s3 rb s3://my-first-bucket-ad : removes a bucket in aws
+aws s3 rb s3://my-first-bucket-ad -recursive : removes each object in the bucket, bucket must be empty to be removed.
+aws s3api create-bucket --bucket my-first-bucket-ad  : creating a bucket
+aws s3api list-buckets : lists current buckets in account 
+aws s3api list-buckets --query "Buckets[?Name == 'my-first-bucket-ad'].Name" : finds the specific bucket with the name in []
